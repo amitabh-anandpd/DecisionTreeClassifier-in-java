@@ -1,12 +1,12 @@
 class Node {
-    String feature;
+    int featureIndex;
     double threshold;
     Node left;
     Node right;
     String label;
 
-    Node(String feature, double threshold) {
-        this.feature = feature;
+    Node(int featureIndex, double threshold) {
+        this.featureIndex = featureIndex;
         this.threshold = threshold;
         this.left = null;
         this.right = null;
