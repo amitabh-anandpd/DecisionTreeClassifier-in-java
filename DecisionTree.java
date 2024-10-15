@@ -211,4 +211,20 @@ public class DecisionTree {
         }
         return node.label;
     }
+    @SuppressWarnings("unchecked")
+    public double accuracy(List<List<Object>> data, List<Object> target){
+        List<double[]> features = (List<double[]>) convertType(data);
+        List<String> labels = (List<String>) convertType(target);
+        if(features.get(0).length != this.numFeatures)
+            return 0;
+        double correct = 0, wrong = 0;
+        for(int i = 0; i < features.size(); i++){
+            String pred = predict(features.get(i));
+            if(pred.equals(labels.get(i)))
+                correct+=1;
+            else
+                wrong+=1;
+        }
+        return correct/(correct+wrong);
+    }
 }
