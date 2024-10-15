@@ -159,8 +159,6 @@ public class DecisionTree {
     }
     private int[] encodeFeature(List<List<Object>> fulldata, int index){
         int[] encoded = new int[fulldata.size()];
-        String Key = this.colName == null ? "Column"+index : this.colName.get(index);
-        EncodeData.newMap(Key);
         int k = 1;
         List<String> feature = new ArrayList<>();
         for(int i = 0; i < fulldata.size(); i++){
@@ -175,10 +173,22 @@ public class DecisionTree {
             }
             k++;
         }
+        String Key = this.colName == null ? "Column"+index : this.colName.get(index);
+        EncodeData.newMap(Key);
         EncodeData.addData(Key, (String[]) unqele.toArray(), encoded);
         return encoded;
     }
+    private List<Object> encodeInput(List<Object> input){
+        for(int i = 0; i < input.size(); i++){
+            if(input.get(i).getClass()!=double.class){
+                String col = this.colName == null ? "Column"+i : this.colName.get(i);
+                input.set(i, (Object)EncodeData.getData(col, (String)input.get(i)));
+            }
+        }
+        return input;
+    }
     public String predict(List<Object> input){
+        input = encodeInput(input);
         double[] inputArr = new double[input.size()];
         for(int i = 0; i < input.size(); i++){
             if(!(input.get(i) instanceof Double))
