@@ -11,4 +11,7 @@ public class EncodeData{
         for(int i = 0; i < subKey.length; i++)
         this.data.get(key).put(subKey[i], k[i]);
     }
+    int getData(String key, String subkey){
+        return data.get(key).get(subkey);
+    }
 }
