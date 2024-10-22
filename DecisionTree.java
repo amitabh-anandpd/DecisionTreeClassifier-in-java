@@ -5,6 +5,7 @@ public class DecisionTree {
     private int numFeatures;
     private List<String> colName;
     private EncodeData EncodeData;
+    private double trainAccuracy;
     DecisionTree(){
         this.root = new Node(null);
         this.EncodeData = null;
@@ -31,7 +32,7 @@ public class DecisionTree {
                 }
             }
         }
-        this.root = build(data, target);
+        fit(data, target);
     }
     @SuppressWarnings("unchecked")
     public void fit(List<List<Object>> data, List<Object> target){
@@ -39,6 +40,7 @@ public class DecisionTree {
         List<String> labels = (List<String>) convertType(target);
         this.numFeatures = data.get(0).size();
         this.root = build(features, labels);
+        this.trainAccuracy = accuracy(data, target);
     }
     private Node build(List<List<Object>> data, List<Object> target){
         Set<String> uniqueLabels = new HashSet<>(labels);
@@ -226,5 +228,8 @@ public class DecisionTree {
                 wrong+=1;
         }
         return correct/(correct+wrong);
+    }
+    public double train_score(){
+        return this.trainAccuracy;
     }
 }
