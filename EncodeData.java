@@ -11,7 +11,16 @@ public class EncodeData{
         for(int i = 0; i < subKey.length; i++)
         this.data.get(key).put(subKey[i], k[i]);
     }
+    void addSingleData(String key, String subkey, int k){
+        this.data.get(key).put(subkey, k);
+    }
     int getData(String key, String subkey){
         return data.get(key).get(subkey);
+    }
+    Map<String, Map<String, Integer>> allData(){
+        return this.data;
+    }
+    boolean checkSubkey(String key, String subkey){
+        return data.get(key).containsKey(subkey);
     }
 }
